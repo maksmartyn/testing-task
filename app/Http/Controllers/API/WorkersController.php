@@ -14,21 +14,8 @@ class WorkersController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $input = $request->all();
-        
-        $validator = Validator::make($input, [
-            'name' => 'string',
-            'department_id' => 'int',
-            'position_id' => 'int'
-        ]);
-        
-        if (isset($input['name'])) {
-            $validator = Validator::make($input, ['name' => 'string']);
-            $workers = Worker::all()->where('name', '=', $input['name']);
-        }
-        
         $workers = Worker::all();
 
         return $this->sendResponse($workers->toArray(), 'Workers retrieved successfully.');
