@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
-use App\Models\Department;
+use App\Models\WorkPosition;
 use Illuminate\Support\Facades\Validator;
 
-class DepartmentsController extends BaseController
+class WorkPositionsController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class DepartmentsController extends BaseController
      */
     public function index()
     {
-        $departments = Department::all();
+        $workPositions = WorkPosition::all();
 
-        return $this->sendResponse($departments->toArray(), 'Departments retrieved successfully.');
+        return $this->sendResponse($workPositions->toArray(), 'WorkPositions retrieved successfully.');
     }
 
 
@@ -34,9 +34,9 @@ class DepartmentsController extends BaseController
 
         $this->validateRequestInput($input);
 
-        $department = Department::create($input);
+        $workPosition = WorkPosition::create($input);
 
-        return $this->sendResponse($department->toArray(), 'Department created successfully.');
+        return $this->sendResponse($workPosition->toArray(), 'WorkPosition created successfully.');
     }
 
 
@@ -48,13 +48,13 @@ class DepartmentsController extends BaseController
      */
     public function show($id)
     {
-        $department = Department::find($id);
+        $workPosition = WorkPosition::find($id);
 
-        if (is_null($department)) {
-            return $this->sendError('Department not found.');
+        if (is_null($workPosition)) {
+            return $this->sendError('WorkPosition not found.');
         }
 
-        return $this->sendResponse($department->toArray(), 'Department retrieved successfully.');
+        return $this->sendResponse($workPosition->toArray(), 'WorkPosition retrieved successfully.');
     }
 
 
@@ -65,16 +65,16 @@ class DepartmentsController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, WorkPosition $workPosition)
     {
         $input = $request->all();
 
         $this->validateRequestInput($input);
 
-        $department->name = $input['name'];
-        $department->save();
+        $workPosition->name = $input['name'];
+        $workPosition->save();
 
-        return $this->sendResponse($department->toArray(), 'Department updated successfully.');
+        return $this->sendResponse($workPosition->toArray(), 'WorkPosition updated successfully.');
     }
 
 
@@ -84,11 +84,11 @@ class DepartmentsController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy(WorkPosition $workPosition)
     {
-        $department->delete();
+        $workPosition->delete();
 
-        return $this->sendResponse($department->toArray(), 'Department deleted successfully.');
+        return $this->sendResponse($workPosition->toArray(), 'WorkPosition deleted successfully.');
     }
 
 

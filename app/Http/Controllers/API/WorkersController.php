@@ -7,15 +7,28 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Worker;
 use Illuminate\Support\Facades\Validator;
 
-class WorkerController extends BaseController
+class WorkersController extends BaseController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $input = $request->all();
+        
+        $validator = Validator::make($input, [
+            'name' => 'string',
+            'department_id' => 'int',
+            'position_id' => 'int'
+        ]);
+        
+        if (isset($input['name'])) {
+            $validator = Validator::make($input, ['name' => 'string']);
+            $workers = Worker::all()->where('name', '=', $input['name']);
+        }
+        
         $workers = Worker::all();
 
         return $this->sendResponse($workers->toArray(), 'Workers retrieved successfully.');
@@ -32,14 +45,7 @@ class WorkerController extends BaseController
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error', $validator->errors());       
-        }
+        $this->validateRequestInput($input);
 
         $worker = Worker::create($input);
 
@@ -76,17 +82,11 @@ class WorkerController extends BaseController
     {
         $input = $request->all();
 
-        $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
-        ]);
+        $this->validateRequestInput($input);
 
-        if($validator->fails()){
-            return $this->sendError('Validation Error', $validator->errors());       
-        }
-
-        $worker->name = $input['name'];
-        $worker->detail = $input['detail'];
+        $worker->adopted_at = $input['adopted_at'];
+        $worker->department_id = $input['department_id'];
+        $worker->position_id = $input['position_id'];
         $worker->save();
 
         return $this->sendResponse($worker->toArray(), 'Worker updated successfully');
@@ -104,5 +104,25 @@ class WorkerController extends BaseController
         $worker->delete();
 
         return $this->sendResponse($worker->toArray(), 'Worker deleted successfully');
+    }
+
+
+    /**
+     * Validate request params.
+     *
+     * @param  array  $input
+     * @return \Illuminate\Http\Response
+     */
+    private function validateRequestInput($input)
+    {
+        $validator = Validator::make($input, [
+            'adopted_at' => 'required|string',
+            'department_id' => 'required|int',
+            'position_id' => 'required|int'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validation Error', $validator->errors(), 406);       
+        }
     }
 }
