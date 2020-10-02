@@ -16,9 +16,9 @@ class WorkersController extends BaseController
      */
     public function index()
     {
-        $workers = Worker::all();
-
-        return $this->sendResponse($workers->toArray(), 'Workers retrieved successfully.');
+        $workers = Worker::paginate();
+        
+        return response()->json($workers, 200);
     }
 
 
