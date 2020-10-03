@@ -54,7 +54,7 @@ class UserWorkerController extends BaseController
             return $this->sendError('UserWorker not found.');
         }
 
-        return $this->sendResponse($userWorker->toArray(), 'UserWorker retrieved successfully');
+        return $this->sendResponse($userWorker, 'UserWorker retrieved successfully');
     }
 
 

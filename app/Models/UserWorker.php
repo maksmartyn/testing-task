@@ -13,6 +13,7 @@ class UserWorker extends Model
      */
     public $timestamps = false;
 
+    
     /**
      * Attributes for which mass assignment is allowed.
      *
@@ -28,8 +29,45 @@ class UserWorker extends Model
         'github',
     ];
     
+    
+    /**
+     * Attributes that should not be included in the array and JSON view of the model.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'worker_id'
+    ];
+
+    
+    /**
+     * Append accessors of attribute that should be included in the array and JSON view of the model.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'worker'
+    ];
+
+    
+    /**
+     * Define relationship.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function worker()
     {
-        return $this->hasOne('App\Models\Worker');
+        return $this->belongsTo('App\Models\Worker');
+    }
+
+    
+    /**
+     *  Append ralated attribute.
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    protected function getWorkerAttribute()
+    {
+        return $this->worker()->get();    
     }
 }

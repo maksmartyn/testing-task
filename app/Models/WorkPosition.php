@@ -13,6 +13,7 @@ class WorkPosition extends Model
      */
     public $timestamps = false;
 
+    
     /**
      * Attributes for which mass assignment is allowed.
      *
@@ -22,8 +23,14 @@ class WorkPosition extends Model
         'name'
     ];
 
+
+    /**
+     * Define relationship.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function worker()
     {
-        return $this->belongsTo('App\Models\Worker');
+        return $this->hasOne('App\Models\Worker');
     }
 }

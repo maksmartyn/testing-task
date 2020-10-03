@@ -13,15 +13,24 @@ class Department extends Model
      */
     public $timestamps = false;
 
+    
     /**
      * Attributes for which mass assignment is allowed.
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name'
+    ];
 
+    
+    /**
+     * Define relationship.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function worker()
     {
-        return $this->belongsTo('App\Models\Worker');
+        return $this->hasOne('App\Models\Worker');
     }
 }
