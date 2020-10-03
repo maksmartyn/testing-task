@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\UserWorker;
+use App\Models\Worker;
 use Illuminate\Support\Facades\Validator;
 
 class UserWorkerController extends BaseController
@@ -102,11 +103,36 @@ class UserWorkerController extends BaseController
     /**
      * Display a paginated listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function paginateList()
+    public function paginateList(Request  $request)
     {
+        $input = $request->all();
+        unset($query);
+        unset($workerId);
         $userWorkers = UserWorker::paginate();
+
+        if (isset($input['query'])) {
+            $query = $input['query'];
+            $userWorkers = $userWorkers->where('name', '=', $query);
+        }
+
+        if (isset($input['department_id'])) {
+            $workerId = Worker::where('department_id', '=', $input['department_id'])
+                ->pluck('id')
+                ->toArray();
+            $userWorkers = $userWorkers->whereIn('worker_id', $workerId);
+        }
+
+        if (isset($input['position_id'])) {
+            $workerId = Worker::where('position_id', '=', $input['position_id'])
+                ->pluck('id')
+                ->toArray();
+            $userWorkers = $userWorkers->whereIn('worker_id', $workerId);
+        }
+
+        // TODO: make pagination for response when request have an arguments
 
         return $this->sendResponse($userWorkers->toArray(), 'UserWorkers retrieved successfully.');
     }
