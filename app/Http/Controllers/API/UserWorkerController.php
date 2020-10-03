@@ -100,6 +100,19 @@ class UserWorkerController extends BaseController
 
 
     /**
+     * Display a paginated listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paginateList()
+    {
+        $userWorkers = UserWorker::paginate();
+
+        return $this->sendResponse($userWorkers->toArray(), 'UserWorkers retrieved successfully.');
+    }
+
+
+    /**
      * Validate request params.
      *
      * @param  array  $input

@@ -22,7 +22,7 @@ Route::group(['prefix' => 'auth'], function() {
   
 Route::group(['middleware' => 'auth:api'], function() {
 	Route::get('/departments', 'API\DepartmentsController@index');
-	Route::get('/workers', 'API\WorkersController@index');
+	Route::get('/workers', 'API\UserWorkerController@paginateList');
 	Route::get('/workers/{user}', 'API\UserWorkerController@show');
 	Route::get('/user', 'API\UserController@index');
 	Route::post('/user', 'API\UserController@update');
