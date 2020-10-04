@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Requests\ConfirmRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\RestoreRequest;
+use App\Http\Requests\RestoreConfirmRequest;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class AuthController extends BaseController
 {
@@ -15,24 +19,19 @@ class AuthController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string'
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if($validator->fails()){
-            return $this->sendError('Unauthorized', $validator->errors(), 406);       
-        }
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $success['token'] = $user->createToken('My App')->accessToken;
+            $token = $user->createToken(config('app.name'));
+            $success['token_type'] = 'Bearer';
+            $success['token'] = $token->accessToken;
             return $this->sendResponse($success, 'User is logged in.');
         }
 
-        return $this->sendError('Unauthorized', $validator->errors(), 401);
+        return $this->sendError('Unauthorized', 'You cannot sign with those credentials', 401);
     }
 
     
@@ -41,25 +40,55 @@ class AuthController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error', $validator->errors());       
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
+        
+        $input = $request->only(
+            'name',
+            'email',
+            'type',
+            'github',
+            'city',
+            'phone',
+            'birthday');
+        $input['password'] = bcrypt($request['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
+        $success['token'] = $user->createToken(config('app.name'))->accessToken;
+        $success['user'] = $user->toArray();
 
         return $this->sendResponse($success, 'User register successfully.');
+    }
+
+
+    /**
+     * 
+     * 
+     * 
+     */
+    public function restore(RestoreRequest $request)
+    {
+        //
+    }
+
+
+    /**
+     * 
+     * 
+     * 
+     */
+    public function restoreConfirm(RestoreConfirmRequest $request)
+    {
+        //
+    }
+
+
+    /**
+     * 
+     * 
+     * 
+     */
+    public function confirm(ConfirmRequest $request)
+    {
+        //
     }
 }
