@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         $userOne->city = '';
         $userOne->phone = '';
         $userOne->birthday = '08.10.04';
-        $userOne->password = bcrypt('igogogo');
+        $userOne->password = bcrypt('igogogog');
         $userOne->save();
         $userOne->roles()->syncWithoutDetaching($user);
         
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
         $userTwo->city = '';
         $userTwo->phone = '';
         $userTwo->birthday = '03.10.01';
-        $userTwo->password = bcrypt('trololo');
+        $userTwo->password = bcrypt('trololol');
         $userTwo->save();
         $userTwo->roles()->syncWithoutDetaching($worker);
         
