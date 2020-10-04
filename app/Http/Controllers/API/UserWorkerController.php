@@ -7,7 +7,6 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\UserWorker;
 use App\Models\Worker;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserWorkerController extends BaseController
 {
@@ -165,29 +164,5 @@ class UserWorkerController extends BaseController
         if($validator->fails()){
             return $this->sendError('Validation Error', $validator->errors(), 406);       
         }
-    }
-
-
-    /**
-     * Paginate data array.
-     *
-     * @param  array  $input
-     * @param  int  $page
-     * @param  int  $perPage
-     * @return array
-     */
-    private function paginateData($data, $page=1, $perPage = 10)
-    {
-        $offSet = ($page * $perPage) - $perPage;  
-        $currentPageItems = array_slice($data, $offSet, $perPage, true);  
-        $paginator = new LengthAwarePaginator(
-            $currentPageItems, 
-            count($data), 
-            $perPage, 
-            $page
-        );
-        $result = $paginator->toArray();
-
-        return $result;
     }
 }
