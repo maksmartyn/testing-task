@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Traits\HasRolesAndPermissions;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -10,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable, HasRolesAndPermissions;
+    use HasApiTokens, Notifiable;
 
     /**
      * Specifies whether timestamps are required for the model.
@@ -26,11 +25,15 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
+        'login',
         'name',
         'email',
+        'image',
+        'about',        
         'type',
         'github',
         'city',
+        'is_finished',
         'phone',
         'birthday'
     ];
@@ -55,4 +58,48 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Define relationship.
+     * 
+     * @return mixed
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class,'users_roles');
+    }
+
+
+    /**
+     * Check whether the current User has a Role.
+     * 
+     * @param mixed ...$roles
+     * @return bool
+    */
+    public function hasRole(... $roles ) {
+        foreach ($roles as $role) {
+            if ($this->roles->contains('slug', $role)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Check whether the current User has a Permission through his Role.
+     * 
+     * @param $permission
+     * @return bool
+     */
+    public function hasPermissionThroughRole($permission)
+    {
+        foreach ($permission->roles as $role){
+            if($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
