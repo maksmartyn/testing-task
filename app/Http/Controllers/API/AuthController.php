@@ -6,11 +6,12 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Requests\ConfirmRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\RestoreRequest;
+use App\Http\Requests\SendRequest;
 use App\Http\Requests\RestoreConfirmRequest;
-use App\User;
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class AuthController extends BaseController
 {
@@ -65,9 +66,16 @@ class AuthController extends BaseController
      * 
      * 
      */
-    public function restore(RestoreRequest $request)
+    public function restore(SendRequest $request)
     {
-        //
+        $input = $request->only('email');
+        $data = URL::action([self::class, 'restoreConfirm']);
+        
+        Mail::raw('Follow this link to restore:'. $data, function($message) use ($input) {
+            $message->to($input['email'])->subject('Restore password');
+            });
+        
+        return $this->sendResponse($data, 'Email was sent successfully.', 201);
     }
 
 
@@ -78,7 +86,11 @@ class AuthController extends BaseController
      */
     public function restoreConfirm(RestoreConfirmRequest $request)
     {
-        //
+        $input = $request->only('password');
+        $password = bcrypt($input['password']);
+        $user = Auth::user();
+        $user->password = $password;
+        $user->save();
     }
 
 
