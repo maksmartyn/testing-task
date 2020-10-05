@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = Role::where('slug','basic-user')->first();
+        $user = Role::where('slug','basic')->first();
         $worker = Role::where('slug','worker')->first();
         $admin = Role::where('slug','admin')->first();
         
@@ -56,6 +56,8 @@ class UserSeeder extends Seeder
         $userThree->birthday = '01.10.02';
         $userThree->password = bcrypt('italia20');
         $userThree->save();
+        $userThree->roles()->syncWithoutDetaching($user);
+        $userThree->roles()->syncWithoutDetaching($worker);
         $userThree->roles()->syncWithoutDetaching($admin);
     }
 }

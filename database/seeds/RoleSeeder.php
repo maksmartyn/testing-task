@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
         
         $user = new Role();
         $user->name = 'Basic user';
-        $user->slug = 'basic-user';
+        $user->slug = 'basic';
         $user->save();
         $user->permissions()->syncWithoutDetaching($readDepartments);
         
