@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\PermissionServiceProvider::class,
+        App\Providers\RolesServiceProvider::class,
+        CrudGenerator\CrudGeneratorServiceProvider::class,
     ],
 
     /*
