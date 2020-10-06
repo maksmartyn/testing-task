@@ -33,7 +33,7 @@ class UserWorkersController extends Controller
     public function edit(Request $request, $id)
     {
         $userWorker = UserWorker::findOrFail($id);
-        return view('user_workers.add', [
+        return view('user_workers.update', [
             'model' => $userWorker    
         ]);
     }
@@ -101,7 +101,6 @@ class UserWorkersController extends Controller
             $userWorker = new UserWorker;
         }
 
-        $userWorker->id = $request->id?:0;
         $userWorker->login = $request->login;
         $userWorker->name = $request->name;
         $userWorker->email = $request->email;

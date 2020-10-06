@@ -13,14 +13,14 @@
     <div class="panel-body">
                 
 
-        <form action="{{ url('/departments') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/departments') }}" method="GET" class="form-horizontal">
 
 
                 
         <div class="form-group">
             <label for="id" class="col-sm-3 control-label">Id</label>
             <div class="col-sm-6">
-                <input type="text" name="id" id="id" class="form-control" value="{{$model['id'] or ''}}" readonly="readonly">
+                <input type="text" name="id" id="id" class="form-control" value="{{$model['id']?:''}}" readonly="readonly">
             </div>
         </div>
         
@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="name" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-6">
-                <input type="text" name="name" id="name" class="form-control" value="{{$model['name'] or ''}}" readonly="readonly">
+                <input type="text" name="name" id="name" class="form-control" value="{{$model['name']?:''}}" readonly="readonly">
             </div>
         </div>
         

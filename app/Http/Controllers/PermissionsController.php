@@ -34,7 +34,7 @@ class PermissionsController extends Controller
     public function edit(Request $request, $id)
     {
         $permission = Permission::findOrFail($id);
-        return view('permissions.add', [
+        return view('permissions.update', [
             'model' => $permission
         ]);
     }
@@ -106,11 +106,8 @@ class PermissionsController extends Controller
             $permission = new Permission;
         }
         
-        $permission->id = $request->id?:0;
         $permission->name = $request->name;
         $permission->slug = $request->slug;
-        $permission->created_at = $request->created_at;
-        $permission->updated_at = $request->updated_at;
         $permission->save();
 
         return redirect('/permissions');

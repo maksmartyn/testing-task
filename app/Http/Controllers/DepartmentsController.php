@@ -35,7 +35,7 @@ class DepartmentsController extends Controller
     public function edit(Request $request, $id)
     {
         $department = Department::findOrFail($id);
-        return view('departments.add', [
+        return view('departments.update', [
             'model' => $department
         ]);
     }
@@ -105,7 +105,6 @@ class DepartmentsController extends Controller
         }else {
             $department = new Department;
         }
-        $department->id = $request->id?:0;
         $department->name = $request->name;
         $department->save();
 

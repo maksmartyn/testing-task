@@ -34,7 +34,7 @@ class RolesController extends Controller
     public function edit(Request $request, $id)
     {
         $role = Role::findOrFail($id);
-        return view('roles.add', [
+        return view('roles.update', [
             'model' => $role
         ]);
     }
@@ -106,11 +106,8 @@ class RolesController extends Controller
             $role = new Role;
         }
         
-        $role->id = $request->id?:0;
         $role->name = $request->name;
         $role->slug = $request->slug;
-        $role->created_at = $request->created_at;   
-        $role->updated_at = $request->updated_at;
         $role->save();
 
         return redirect('/roles');

@@ -34,7 +34,7 @@ class WorkPositionsController extends Controller
     public function edit(Request $request, $id)
     {
         $workPosition = WorkPosition::findOrFail($id);
-        return view('work_positions.add', [
+        return view('work_positions.update', [
             'model' => $workPosition
         ]);
     }
@@ -108,7 +108,6 @@ class WorkPositionsController extends Controller
             $workPosition = new WorkPosition;
         }
 
-        $workPosition->id = $request->id?:0;
         $workPosition->name = $request->name;
         $workPosition->save();
 

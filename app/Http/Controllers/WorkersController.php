@@ -34,7 +34,7 @@ class WorkersController extends Controller
     public function edit(Request $request, $id)
     {
         $worker = Worker::findOrFail($id);
-        return view('workers.add', [
+        return view('workers.update', [
             'model' => $worker
         ]);
     }
@@ -106,7 +106,6 @@ class WorkersController extends Controller
             $worker = new Worker;
         }
 
-        $worker->id = $request->id?:0;
         $worker->department_id = $request->department_id;
         $worker->position_id = $request->position_id;
         $worker->adopted_at = $request->adopted_at;

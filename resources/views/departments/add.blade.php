@@ -15,20 +15,13 @@
             {{ csrf_field() }}
 
             @if (isset($model))
-                <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="_method" value="POST">
             @endif
 
-
-                                    <div class="form-group">
-                <label for="id" class="col-sm-3 control-label">Id</label>
-                <div class="col-sm-6">
-                    <input type="text" name="id" id="id" class="form-control" value="{{$model['id'] or ''}}" readonly="readonly">
-                </div>
-            </div>
-                                                                                                            <div class="form-group">
+            <div class="form-group">
                 <label for="name" class="col-sm-3 control-label">Name</label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" id="name" class="form-control" value="{{$model['name'] or ''}}">
+                    <input type="text" name="name" id="name" class="form-control" value="{{$model['name']?:''}}">
                 </div>
             </div>
                                                             

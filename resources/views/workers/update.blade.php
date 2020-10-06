@@ -15,7 +15,7 @@
             {{ csrf_field() }}
 
             @if (isset($model))
-                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="_method" value="PUT">
             @endif
                                                                    
             <div class="form-group">
