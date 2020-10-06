@@ -15,8 +15,15 @@
             {{ csrf_field() }}
 
             @if (isset($model))
-                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="_method" value="PUT">
             @endif
+
+                                    <div class="form-group">
+                <label for="id" class="col-sm-3 control-label">Id</label>
+                <div class="col-sm-6">
+                    <input type="text" name="id" id="id" class="form-control" value="{{$model['id']?:''}}" readonly="readonly">
+                </div>
+            </div>
                                                                                                             <div class="form-group">
                 <label for="login" class="col-sm-3 control-label">Login</label>
                 <div class="col-sm-6">
@@ -86,7 +93,7 @@
                                                             <div class="form-group">
                 <label for="password" class="col-sm-3 control-label">Password</label>
                 <div class="col-sm-6">
-                    <input type="text" name="password" id="password" class="form-control" value="{{$model['password']?:''}}">
+                    <input type="password" name="password" id="password" class="form-control" value="{{$model['password']?:''}}">
                 </div>
             </div>
                         

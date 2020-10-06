@@ -197,17 +197,17 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             @role('basic')
-            <li class="inactive"><a href="./departments">Departments <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/departments">Departments <span class="sr-only">(current)</span></a></li>
             @endrole
             @role('worker')
-            <li class="inactive"><a href="./workers">Workers <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/workers">Workers <span class="sr-only">(current)</span></a></li>
             @endrole
             @role('admin')
-            <li class="inactive"><a href="./permissions">Permissions <span class="sr-only">(current)</span></a></li>
-            <li class="inactive"><a href="./roles">Roles <span class="sr-only">(current)</span></a></li>
-            <li class="inactive"><a href="./user_workers">User workers <span class="sr-only">(current)</span></a></li>
-            <li class="inactive"><a href="./users">Users <span class="sr-only">(current)</span></a></li>
-            <li class="inactive"><a href="./work_positions">Work positions <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/permissions">Permissions <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/roles">Roles <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/user_workers">User workers <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/users">Users <span class="sr-only">(current)</span></a></li>
+            <li class="inactive"><a href="/work_positions">Work positions <span class="sr-only">(current)</span></a></li>
             @endrole
           </ul>
         </div>

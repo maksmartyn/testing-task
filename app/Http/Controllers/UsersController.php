@@ -34,7 +34,7 @@ class UsersController extends Controller
     public function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        return view('users.add', [
+        return view('users.update', [
             'model' => $user
         ]);
     }
@@ -44,7 +44,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         return view('users.show', [
-            'model' => $user        ]);
+            'model' => $user
+        ]);
     }
 
 
@@ -104,7 +105,6 @@ class UsersController extends Controller
             $user = new User;
         }
 
-        $user->id = $request->id?:0;
         $user->login = $request->login;
         $user->name = $request->name;
         $user->email = $request->email;
@@ -116,11 +116,7 @@ class UsersController extends Controller
         $user->is_finished = $request->is_finished;
         $user->phone = $request->phone;
         $user->birthday = $request->birthday;
-        $user->email_verified_at = $request->email_verified_at;
-        $user->password = $request->password;
-        $user->remember_token = $request->remember_token;
-        $user->created_at = $request->created_at;
-        $user->updated_at = $request->updated_at;
+        $user->password = bcrypt($request->password);
         $user->save();
 
         return redirect('/users');
