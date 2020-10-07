@@ -7,7 +7,7 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        Add/Modify Worker    </div>
+        Modify Worker    </div>
 
     <div class="panel-body">
                 
@@ -19,15 +19,23 @@
             @endif
                                                                    
             <div class="form-group">
-                <label for="department_id" class="col-sm-3 control-label">Department Id</label>
+                <label for="department_id" class="col-sm-3 control-label">Department</label>
                 <div class="col-sm-2">
-                    <input type="number" name="department_id" id="department_id" class="form-control" value="{{$model['department_id']?:''}}">
+                    <select type="number" name="department_id" id="department_id" class="form-control" value="{{$model['department_id']?:''}}">
+                        @foreach ($departments as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
                                                                                                 <div class="form-group">
-                <label for="position_id" class="col-sm-3 control-label">Position Id</label>
+                <label for="position_id" class="col-sm-3 control-label">Position</label>
                 <div class="col-sm-2">
-                    <input type="number" name="position_id" id="position_id" class="form-control" value="{{$model['position_id']?:''}}">
+                    <select type="number" name="position_id" id="position_id" class="form-control" value="{{$model['position_id']?:''}}">
+                        @foreach ($positions as $key => $value)
+                            <option value="{{ $key }}">{{ $value }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
                                                                                                                         <div class="form-group">

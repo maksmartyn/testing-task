@@ -20,8 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth','role:basic']], function() {
-    Route::resource('/departments', 'DepartmentsController');
     Route::get('/departments/grid', 'DepartmentsController@grid');
+    Route::resource('/departments', 'DepartmentsController');
 });
 
 Route::group(['middleware' => ['auth','role:worker']], function() {

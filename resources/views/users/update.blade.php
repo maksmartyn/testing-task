@@ -57,7 +57,10 @@
                                                                                                 <div class="form-group">
                 <label for="type" class="col-sm-3 control-label">Type</label>
                 <div class="col-sm-6">
-                    <input type="text" name="type" id="type" class="form-control" value="{{$model['type']?:''}}">
+                    <select type="text" name="type" id="type" class="form-control input-sm" value="{{$model['type']?:''}}">
+                        <option value="front">Frontender</option>
+                        <option value="back">Backender</option>
+                    </select>
                 </div>
             </div>
                                                                                                 <div class="form-group">

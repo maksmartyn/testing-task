@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Worker;
+use App\Models\Department;
+use App\Models\WorkPosition;
 use DB;
 
 class WorkersController extends Controller
@@ -25,8 +27,12 @@ class WorkersController extends Controller
     public function create(Request $request)
     {
         $worker = new Worker;
+        $departments = Department::pluck('name', 'id')->toArray();
+        $positions = WorkPosition::pluck('name', 'id')->toArray();
         return view('workers.add', [
-            'model' => $worker
+            'model' => $worker,
+            'departments' => $departments,
+            'positions' => $positions
         ]);
     }
 
@@ -34,8 +40,12 @@ class WorkersController extends Controller
     public function edit(Request $request, $id)
     {
         $worker = Worker::findOrFail($id);
+        $departments = Department::pluck('name', 'id')->toArray();
+        $positions = WorkPosition::pluck('name', 'id')->toArray();
         return view('workers.update', [
-            'model' => $worker
+            'model' => $worker,
+            'departments' => $departments,
+            'positions' => $positions
         ]);
     }
 
