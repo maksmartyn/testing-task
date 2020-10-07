@@ -53,7 +53,7 @@ class BaseController extends Controller
      * @param  int  $perPage
      * @return array
      */
-    protected function paginateData($data, $page=1, $perPage = 10)
+    protected function paginateData($data, $page, $perPage = 10)
     {
         $offSet = ($page * $perPage) - $perPage;  
         $currentPageItems = array_slice($data, $offSet, $perPage, true);  

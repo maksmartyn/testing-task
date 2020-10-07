@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
+use App\Models\User;
 use App\Models\UserWorker;
 use App\Models\Worker;
 use Illuminate\Support\Facades\Validator;
@@ -105,12 +106,8 @@ class UserWorkerController extends BaseController
         $input = $request->all();
         unset($query);
         unset($workerId);
+        $page = 1;
         $userWorkers = UserWorker::all();
-
-        if (isset($input['query'])) {
-            $query = $input['query'];
-            $userWorkers = $userWorkers->where('name', '=', $query);
-        }
 
         if (isset($input['department_id'])) {
             $workerId = Worker::where('department_id', '=', $input['department_id'])
@@ -126,11 +123,23 @@ class UserWorkerController extends BaseController
             $userWorkers = $userWorkers->whereIn('worker_id', $workerId);
         }
 
+        $userId = $userWorkers->pluck('user_id');
+        $workers = collect();
+        
+        foreach($userId as $id) {
+            $workers->push(User::find($id)->only('login', 'name', 'email', 'image', 'about', 'github'));
+        }
+
+        if (isset($input['query'])) {
+                $query = $input['query'];
+                $workers = $workers->where('name', '=', $query);
+        }
+
         if (isset($input['page'])) {
             $page = $input['page'];
         }
 
-        $result = $this->paginateData($userWorkers->toArray());
+        $result = $this->paginateData($workers->toArray(), $page);
 
         return $this->sendResponse($result, 'UserWorkers retrieved successfully.');
     }
