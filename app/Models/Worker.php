@@ -71,9 +71,9 @@ class Worker extends Model
     /**
      * Define relationship.
      *
-     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     * @return Illuminate\Database\Eloquent\Relations\Hasone
      */
-    public function userWorker()
+    public function user()
     {
         return $this->hasOne('App\Models\UserWorker');
     }

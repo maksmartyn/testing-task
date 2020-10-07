@@ -20,23 +20,8 @@ class UserWorker extends Model
      * @var array
      */
     protected $fillable = [
-        'login',
-        'name',
-        'email',
-        'image',
-        'about',
-        'type',
-        'github',
-    ];
-    
-    
-    /**
-     * Attributes that should not be included in the array and JSON view of the model.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'worker_id'
+        'user_id',
+        'worker_id',
     ];
 
     
@@ -46,7 +31,8 @@ class UserWorker extends Model
      * @var array
      */
     protected $appends = [
-        'worker'
+        'worker',
+        'user'
     ];
 
     
@@ -60,6 +46,17 @@ class UserWorker extends Model
         return $this->belongsTo('App\Models\Worker');
     }
 
+
+    /**
+     * Define relationship.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     
     /**
      *  Append ralated attribute.
@@ -69,5 +66,16 @@ class UserWorker extends Model
     protected function getWorkerAttribute()
     {
         return $this->worker()->get();    
+    }
+
+
+    /**
+     *  Append ralated attribute.
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    protected function getUserAttribute()
+    {
+        return $this->user()->get();    
     }
 }

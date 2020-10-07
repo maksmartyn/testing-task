@@ -72,13 +72,7 @@ class UserWorkerController extends BaseController
 
         $this->validateRequestInput($input);
 
-        $userWorker->login = $input['login'];
-        $userWorker->name = $input['name'];
-        $userWorker->email = $input['email'];
-        $userWorker->image = $input['image'];
-        $userWorker->about = $input['about'];
-        $userWorker->type = $input['type'];
-        $userWorker->github = $input['github'];
+        $userWorker->user_id = $input['user_id'];
         $userWorker->worker_id = $input['worker_id'];
         $userWorker->save();
 

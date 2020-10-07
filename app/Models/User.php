@@ -62,6 +62,17 @@ class User extends Authenticatable
     /**
      * Define relationship.
      * 
+     * @return Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function worker()
+    {
+        return $this->hasOne('App\Models\UserWorker');
+    }
+
+
+    /**
+     * Define relationship.
+     * 
      * @return mixed
      */
     public function roles()

@@ -22,7 +22,7 @@ Route::group(['prefix' => 'auth'], function() {
 	Route::post('/restore/confirm', 'API\AuthController@restoreConfirm');
 });
   
-Route::group(['middleware' => ['auth:api','role:basic-user']], function() {
+Route::group(['middleware' => ['auth:api','role:basic']], function() {
 	Route::get('/departments', 'API\DepartmentsController@index');
 });
 Route::group(['middleware' => ['auth:api','role:worker']], function() {

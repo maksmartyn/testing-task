@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\UserWorker;
+use App\Models\Worker;
 use DB;
 
 class UserWorkersController extends Controller
@@ -52,42 +54,38 @@ class UserWorkersController extends Controller
     {
         $len = $_GET['length'];
         $start = $_GET['start'];
-
-        $select = "SELECT *,1,2 ";
-        $presql = " FROM user_workers a ";
-
+        
         if($_GET['search']['value']) {
-            $presql .= " WHERE login LIKE '%".$_GET['search']['value']."%' ";
+            $userWorkers = UserWorker::where('user_id', 'LIKE', '%' . $_GET['search']['value'] . '%')->pluck('worker_id', 'user_id');
+        } else {
+            $userWorkers = UserWorker::pluck('worker_id', 'user_id');
         }
 
-        $presql .= "  ";
-
-        $orderby = "";
-        $columns = array('id','login','name','email','image','about','type','github','worker_id',);
-        $order = $columns[$request->input('order.0.column')];
-        $dir = $request->input('order.0.dir');
-        $orderby = "Order By " . $order . " " . $dir;
-        $sql = $select.$presql.$orderby." LIMIT ".$start.",".$len;
-        $qcount = DB::select("SELECT COUNT(a.id) c".$presql);
-        $count = $qcount[0]->c;
-        $results = DB::select($sql);
-        $ret = [];
-
-        foreach ($results as $row) {
+        foreach ($userWorkers as $user => $worker) {
+            $item = User::find($user)->only('login', 'name', 'email', 'image', 'about', 'github');
+            $item['adopted_at'] = implode(Worker::find($worker)->only('adopted_at'));
+            $item['department'] = implode(Worker::find($worker)->department->pluck('name')->toArray());
+            $item['position'] = implode(Worker::find($worker)->position->pluck('name')->toArray());
+            $result[] = $item;
+        }
+        
+        $slice = array_slice($result, $start, $len);
+        
+        foreach ($slice as $row) {
             $r = [];
             foreach ($row as $value) {
                 $r[] = $value;
             }
         $ret[] = $r;
         }
-
+        
         $ret['data'] = $ret;
-        $ret['recordsTotal'] = $count;
-        $ret['iTotalDisplayRecords'] = $count;
+        $ret['recordsTotal'] = count($result);
+        $ret['iTotalDisplayRecords'] = count($result);
 
-        $ret['recordsFiltered'] = count($ret);
+        $ret['recordsFiltered'] = count($slice);
         $ret['draw'] = $_GET['draw'];
-
+        
         echo json_encode($ret);
     }
 
@@ -101,13 +99,7 @@ class UserWorkersController extends Controller
             $userWorker = new UserWorker;
         }
 
-        $userWorker->login = $request->login;
-        $userWorker->name = $request->name;
-        $userWorker->email = $request->email;
-        $userWorker->image = $request->image;
-        $userWorker->about = $request->about;
-        $userWorker->type = $request->type;
-        $userWorker->github = $request->github;
+        $userWorker->user_id = $request->user_id;
         $userWorker->worker_id = $request->worker_id;
         $userWorker->save();
     

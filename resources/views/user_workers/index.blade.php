@@ -15,15 +15,15 @@
             <table class="table table-striped" id="thegrid">
               <thead>
                 <tr>
-                                        <th>Id</th>
                                         <th>Login</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Image</th>
                                         <th>About</th>
-                                        <th>Type</th>
                                         <th>Github</th>
-                                        <th>Worker Id</th>
+                                        <th>Adopted_at</th>
+                                        <th>Department</th>
+                                        <th>Position</th>
                                         <th style="width:50px"></th>
                     <th style="width:50px"></th>
                 </tr>
@@ -67,7 +67,7 @@
                         "targets": 9                    },
                     {
                         "render": function ( data, type, row ) {
-                            return '<a href="#" onclick="return doDelete('+row[0]+')" class="btn btn-danger">Delete</a>';
+                            return '<a href="#" onclick="return doDelete('+row[0]+')" class="btn btn-danger">Fire</a>';
                         },
                         "targets": 9+1
                     },

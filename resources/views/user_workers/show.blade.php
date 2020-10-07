@@ -13,70 +13,14 @@
     <div class="panel-body">
                 
 
-        <form action="{{ url('/user_workers') }}" method="POST" class="form-horizontal">
+        <form action="{{ url('/user_workers') }}" method="GET" class="form-horizontal">
 
 
                 
         <div class="form-group">
-            <label for="id" class="col-sm-3 control-label">Id</label>
+            <label for="user_id" class="col-sm-3 control-label">User Id</label>
             <div class="col-sm-6">
-                <input type="text" name="id" id="id" class="form-control" value="{{$model['id'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="login" class="col-sm-3 control-label">Login</label>
-            <div class="col-sm-6">
-                <input type="text" name="login" id="login" class="form-control" value="{{$model['login'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="name" class="col-sm-3 control-label">Name</label>
-            <div class="col-sm-6">
-                <input type="text" name="name" id="name" class="form-control" value="{{$model['name'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="email" class="col-sm-3 control-label">Email</label>
-            <div class="col-sm-6">
-                <input type="text" name="email" id="email" class="form-control" value="{{$model['email'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="image" class="col-sm-3 control-label">Image</label>
-            <div class="col-sm-6">
-                <input type="text" name="image" id="image" class="form-control" value="{{$model['image'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="about" class="col-sm-3 control-label">About</label>
-            <div class="col-sm-6">
-                <input type="text" name="about" id="about" class="form-control" value="{{$model['about'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="type" class="col-sm-3 control-label">Type</label>
-            <div class="col-sm-6">
-                <input type="text" name="type" id="type" class="form-control" value="{{$model['type'] or ''}}" readonly="readonly">
-            </div>
-        </div>
-        
-                
-        <div class="form-group">
-            <label for="github" class="col-sm-3 control-label">Github</label>
-            <div class="col-sm-6">
-                <input type="text" name="github" id="github" class="form-control" value="{{$model['github'] or ''}}" readonly="readonly">
+                <input type="text" name="user_id" id="user_id" class="form-control" value="{{$model['user_id'] or ''}}" readonly="readonly">
             </div>
         </div>
         
