@@ -3,7 +3,7 @@
 @section('content')
 
 
-<h2 class="page-header">{{ ucfirst('departments') }}</h2>
+<h2 class="page-header">{{ ucfirst('department') }}</h2>
 
 <div class="panel panel-default">
     <div class="panel-heading">
