@@ -7,41 +7,9 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
 use App\Models\UserWorker;
 use App\Models\Worker;
-use Illuminate\Support\Facades\Validator;
 
 class UserWorkerController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $userWorkers = UserWorker::all();
-
-        return $this->sendResponse($userWorkers->toArray(), 'UserWorkers retrieved successfully.');
-    }
-
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $input = $request->all();
-
-        $this->validateRequestInput($input);
-
-        $userWorker = UserWorker::create($input);
-
-        return $this->sendResponse($userWorker->toArray(), 'UserWorker created successfully');
-    }
-
-
     /**
      * Display the specified resource.
      *
@@ -50,48 +18,38 @@ class UserWorkerController extends BaseController
      */
     public function show($id)
     {
-        $userWorker = UserWorker::find($id);
-
-        if (is_null($userWorker)) {
-            return $this->sendError('UserWorker not found.');
+        $user = User::find($id);
+        
+        if (is_null($user)) {
+            return $this->sendError('User not found.');
         }
 
+        $user = $user->only(
+            'id',
+            'login', 
+            'name', 
+            'email', 
+            'image', 
+            'about',
+            'type',
+            'github'
+        );
+        $worker = UserWorker::where('user_id', '=', $id)->first();
+
+        if (is_null($worker)) {
+            return $this->sendError('User is not worker.');
+        }
+
+        $worker = $worker->worker->first();
+        $department = implode($worker->department->pluck('name')->toArray());
+        $position =  implode($worker->position->pluck('name')->toArray());
+        $worker = $worker->only('adopted_at');
+        $worker['department'] = $department;
+        $worker['position'] = $position;
+        $userWorker = $user;
+        $userWorker['worker'] = $worker;
+
         return $this->sendResponse($userWorker, 'UserWorker retrieved successfully');
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserWorker $userWorker)
-    {
-        $input = $request->all();
-
-        $this->validateRequestInput($input);
-
-        $userWorker->user_id = $input['user_id'];
-        $userWorker->worker_id = $input['worker_id'];
-        $userWorker->save();
-
-        return $this->sendResponse($userWorker->toArray(), 'UserWorker updated successfully');
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserWorker $userWorker)
-    {
-        $userWorker->delete();
-
-        return $this->sendResponse($userWorker->toArray(), 'UserWorker deleted successfully');
     }
 
 
@@ -127,7 +85,14 @@ class UserWorkerController extends BaseController
         $workers = collect();
         
         foreach($userId as $id) {
-            $workers->push(User::find($id)->only('login', 'name', 'email', 'image', 'about', 'github'));
+            $workers->push(User::find($id)->only(
+                'login', 
+                'name', 
+                'email', 
+                'image', 
+                'about', 
+                'github'
+            ));
         }
 
         if (isset($input['query'])) {
@@ -142,30 +107,5 @@ class UserWorkerController extends BaseController
         $result = $this->paginateData($workers->toArray(), $page);
 
         return $this->sendResponse($result, 'UserWorkers retrieved successfully.');
-    }
-
-
-    /**
-     * Validate request params.
-     *
-     * @param  array  $input
-     * @return \Illuminate\Http\Response
-     */
-    private function validateRequestInput($input)
-    {
-        $validator = Validator::make($input, [
-            'login' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|string',
-            'image' => 'string',
-            'about' => 'string',
-            'type' => 'required|string',
-            'github' => 'string',
-            'worker_id' => 'required|int'
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error', $validator->errors(), 406);       
-        }
     }
 }

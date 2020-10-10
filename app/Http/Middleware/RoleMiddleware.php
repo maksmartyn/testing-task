@@ -15,15 +15,20 @@ class RoleMiddleware
      * @param null $permission
      * @return mixed
      */
-    public function handle($request, Closure $next, $role, $permission = null)
+    public function handle($request, Closure $next, ... $roles)
     {
-        if(!auth()->user()->hasRole($role)) {
+        $hasRole = false;
+
+        foreach($roles as $role) {
+            if(auth()->user()->hasRole($role)) {
+                $hasRole = true;
+            };
+        }
+
+        if($hasRole == 0) {
             return redirect('/home');
         }
         
-        if($permission !== null && !auth()->user()->can($permission)) {
-            return redirect('/home');
-        }
         return $next($request);
     }
 }

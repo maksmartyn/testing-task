@@ -84,31 +84,12 @@ class User extends Authenticatable
     /**
      * Check whether the current User has a Role.
      * 
-     * @param mixed ...$roles
+     * @param mixed $role
      * @return bool
     */
-    public function hasRole(... $roles ) {
-        foreach ($roles as $role) {
-            if ($this->roles->contains('slug', $role)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * Check whether the current User has a Permission through his Role.
-     * 
-     * @param $permission
-     * @return bool
-     */
-    public function hasPermissionThroughRole($permission)
-    {
-        foreach ($permission->roles as $role){
-            if($this->roles->contains($role)) {
-                return true;
-            }
+    public function hasRole($role) {
+        if ($this->roles->contains('slug', $role)) {
+            return true;
         }
         return false;
     }
