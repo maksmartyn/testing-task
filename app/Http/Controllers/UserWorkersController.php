@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -43,7 +43,7 @@ class UserWorkersController extends Controller
 
     public function show(Request $request, $id)
     {
-        $userWorker = UserWorker::findOrFail($id);
+        $userWorker = User::find($id)->only('login', 'name', 'email', 'image', 'about', 'github');
         return view('user_workers.show', [
             'model' => $userWorker    
         ]);
@@ -62,7 +62,7 @@ class UserWorkersController extends Controller
         }
 
         foreach ($userWorkers as $user => $worker) {
-            $item = User::find($user)->only('login', 'name', 'email', 'image', 'about', 'github');
+            $item = User::find($user)->only('id', 'login', 'name', 'email', 'image', 'about', 'github');
             $item['adopted_at'] = implode(Worker::find($worker)->only('adopted_at'));
             $item['department'] = implode(Worker::find($worker)->department->pluck('name')->toArray());
             $item['position'] = implode(Worker::find($worker)->position->pluck('name')->toArray());
@@ -94,7 +94,7 @@ class UserWorkersController extends Controller
         $userWorker = null;
 
         if($request->id > 0) { 
-            $userWorker = UserWorker::findOrFail($request->id); 
+            $userWorker = UserWorker::where('user_id', '=', $request->id); 
         } else {
             $userWorker = new UserWorker;
         }
@@ -113,7 +113,7 @@ class UserWorkersController extends Controller
 
     public function destroy(Request $request, $id) 
     {
-        $userWorker = UserWorker::findOrFail($id);
+        $userWorker = UserWorker::where('user_id', '=', $request->id);
         $userWorker->delete();
         return "OK";
     }

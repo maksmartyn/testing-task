@@ -18,19 +18,45 @@
 
                 
         <div class="form-group">
-            <label for="user_id" class="col-sm-3 control-label">User Id</label>
+            <label for="login" class="col-sm-3 control-label">Login</label>
             <div class="col-sm-6">
-                <input type="text" name="user_id" id="user_id" class="form-control" value="{{$model['user_id'] or ''}}" readonly="readonly">
+                <input type="text" name="login" id="login" class="form-control" value="{{$model['login']}}" readonly="readonly">
             </div>
         </div>
         
                 
         <div class="form-group">
-            <label for="worker_id" class="col-sm-3 control-label">Worker Id</label>
+            <label for="name" class="col-sm-3 control-label">Name</label>
             <div class="col-sm-6">
-                <input type="text" name="worker_id" id="worker_id" class="form-control" value="{{$model['worker_id'] or ''}}" readonly="readonly">
+                <input type="text" name="name" id="name" class="form-control" value="{{$model['name']?:''}}" readonly="readonly">
             </div>
         </div>
+        
+                
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-6">
+                <input type="text" name="email" id="email" class="form-control" value="{{$model['email']?:''}}" readonly="readonly">
+            </div>
+        </div>
+        
+                
+        <div class="form-group">
+            <label for="image" class="col-sm-3 control-label">Image</label>
+            <div class="col-sm-6">
+                <input type="text" name="image" id="image" class="form-control" value="{{$model['image']?:''}}" readonly="readonly">
+            </div>
+        </div>
+        
+                
+        <div class="form-group">
+            <label for="about" class="col-sm-3 control-label">About</label>
+            <div class="col-sm-6">
+                <input type="text" name="about" id="about" class="form-control" value="{{$model['about']?:''}}" readonly="readonly">
+            </div>
+        </div>
+        
+        
         
         
         <div class="form-group">

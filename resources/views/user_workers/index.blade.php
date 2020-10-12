@@ -15,6 +15,7 @@
             <table class="table table-striped" id="thegrid">
               <thead>
                 <tr>
+                                        <th>Id</th>
                                         <th>Login</th>
                                         <th>Name</th>
                                         <th>Email</th>
@@ -74,9 +75,9 @@
                 ]
             });
         });
-        function doDelete(id) {
+        function doDelete(user_id) {
             if(confirm('You really want to delete this record?')) {
-               $.ajax({ url: '{{ url('/user_workers') }}/' + id, type: 'DELETE'}).success(function() {
+               $.ajax({ url: '{{ url('/user_workers') }}/' + user_id, type: 'DELETE'}).success(function() {
                 theGrid.ajax.reload();
                });
             }

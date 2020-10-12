@@ -25,8 +25,8 @@ Route::group(['middleware' => ['auth','role:basic']], function() {
 });
 
 Route::group(['middleware' => ['auth','role:worker']], function() {
-    Route::get('/workers/grid', 'WorkersController@grid');
-    Route::resource('/workers', 'WorkersController');
+    Route::get('/user_workers/grid', 'UserWorkersController@grid');
+    Route::resource('/user_workers', 'UserWorkersController');
 });  
     
 Route::group(['middleware' => ['auth','role:admin']], function() {
@@ -34,8 +34,8 @@ Route::group(['middleware' => ['auth','role:admin']], function() {
     Route::resource('/permissions', 'PermissionsController');
     Route::get('/roles/grid', 'RolesController@grid');
     Route::resource('/roles', 'RolesController');
-    Route::get('/user_workers/grid', 'UserWorkersController@grid');
-    Route::resource('/user_workers', 'UserWorkersController');
+    Route::get('/workers/grid', 'WorkersController@grid');
+    Route::resource('/workers', 'WorkersController');
     Route::get('/users/grid', 'UsersController@grid');
     Route::resource('/users', 'UsersController');
     Route::get('/work_positions/grid', 'WorkPositionsController@grid');
