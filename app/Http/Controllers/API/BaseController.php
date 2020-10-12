@@ -6,6 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller as Controller;
 
+/**
+ *  @OA\Info(
+ *     title="Test API",
+ *     version="1.0.0"
+ *  ),
+ *  @OA\Server(
+ *     url="/api"
+ *  )
+ * 
+ */
 class BaseController extends Controller
 {
     /**
@@ -15,11 +25,14 @@ class BaseController extends Controller
      */
     public function sendResponse($result, $message, $code = 200)
     {
-    	$response = [
+        /*
+        $response = [
             'success' => true,
             'data'    => $result,
             'message' => $message,
         ];
+        */
+        $response = $result;
 
         return response()->json($response, $code);
     }

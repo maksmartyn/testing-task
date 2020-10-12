@@ -1,9 +1,29 @@
-<?php
+<?php 
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *  schema="RestoreConfirmRequest",
+ *  @OA\Property(
+ *      property="token",
+ *      description="Access token",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="password",
+ *      description="New password",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="password_confirmation",
+ *      description="Confirm new password",
+ *      type="string"
+ *  )
+ * )
+ */
 class RestoreConfirmRequest extends FormRequest
 {
     /**

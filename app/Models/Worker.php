@@ -1,9 +1,30 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *  schema="Worker",
+ *  @OA\Property(
+ *      property="id",
+ *      type="integer"
+ *  ),
+ *  @OA\Property(
+ *      property="department",
+ *      ref="#/components/schemas/Department"
+ *  ),
+ *  @OA\Property(
+ *      property="position",
+ *      ref="#/components/schemas/WorkPosition"
+ *  ),
+ *  @OA\Property(
+ *      property="adopted_at",
+ *      type="string"
+ *  )
+ * )
+ */
 class Worker extends Model
 {
     /**

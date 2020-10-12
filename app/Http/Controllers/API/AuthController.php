@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -16,6 +16,39 @@ use Illuminate\Support\Facades\URL;
 class AuthController extends BaseController
 {
     /**
+     * @OA\Post(
+     *     path="/auth/login",
+     *     summary="Auth user",
+     *     tags={"Authorization"},
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/LoginRequest"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/LoginRequest")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User is logged in",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="token",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="user",
+     *                 ref="#/components/schemas/User"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     )
+     * )
+     *
      * Login User
      *
      * @param \App\Http\Requests\LoginRequest
@@ -51,6 +84,39 @@ class AuthController extends BaseController
 
     
     /**
+     * @OA\Post(
+     *     path="/auth/register",
+     *     summary="Register user",
+     *     tags={"Authorization"},
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/RegisterRequest"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/RegisterRequest")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="User register successfully",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="token",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="user",
+     *                 ref="#/components/schemas/User"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     )
+     * )
+     *
      * Register new User
      *
      * @param \App\Http\Requests\RegisterRequest
@@ -90,6 +156,29 @@ class AuthController extends BaseController
 
 
     /**
+     * @OA\Post(
+     *     path="/auth/restore",
+     *     summary="Restore password",
+     *     tags={"Authorization"},
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/SendRequest"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/SendRequest")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Email was sent successfully"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized"
+     *     )
+     * )
+     *
      * Restore password
      * 
      * @param \App\Http\Requests\SendRequest
@@ -146,6 +235,29 @@ class AuthController extends BaseController
 
 
     /**
+     * @OA\Post(
+     *     path="/auth/restore/confirm",
+     *     summary="Register user",
+     *     tags={"Authorization"},
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/RestoreConfirmRequest"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/RestoreConfirmRequest")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Password was successfully changed"
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     )
+     * )
+     *
      * Confirm password restore
      * 
      * @param \App\Http\Requests\RestoreConfirmRequest

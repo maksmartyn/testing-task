@@ -1,9 +1,42 @@
-<?php
+<?php 
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *  schema="RegisterRequest",
+ *  @OA\Property(
+ *      property="name",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="email",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="type",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="github",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="city",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="phone",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="birthday",
+ *      type="string"
+ *  )
+ * )
+ */
 class RegisterRequest extends FormRequest
 {
     /**

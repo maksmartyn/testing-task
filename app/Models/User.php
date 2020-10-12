@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Models;
 
@@ -6,6 +6,59 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @OA\Schema(
+ *  schema="User",
+ *  @OA\Property(
+ *      property="id",
+ *      type="integer"
+ *  ),
+ *  @OA\Property(
+ *      property="login",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="name",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="email",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="image",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="about",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="type",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="github",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="city",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="is_finished",
+ *      type="boolean"
+ *  ),
+ *  @OA\Property(
+ *      property="phone",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="birthday",
+ *      type="string"
+ *  )
+ * )
+ */
 class User extends Authenticatable 
 {
     use HasApiTokens, Notifiable;

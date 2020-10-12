@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -10,6 +10,26 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends BaseController
 {
     /**
+     * @OA\Get(
+     *     path="/user",
+     *     summary="Get user info",
+     *     tags={"User"},
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/User"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     )
+     * )
+     *
      * Display the specified resource.
      *
      * 
@@ -37,6 +57,35 @@ class UserController extends BaseController
 
 
     /**
+     * @OA\Post(
+     *     path="/user",
+     *     summary="Update user info",
+     *     tags={"User"},
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/UpdateUserRequest"
+     *         ),
+     *         @OA\MediaType(
+     *             mediaType="application/x-www-form-urlencoded",
+     *             @OA\Schema(ref="#/components/schemas/UpdateUserRequest")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful",
+     *         @OA\JsonContent(
+     *             ref="#/components/schemas/User"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     )
+     * )
+     *
      * Update the specified resource in storage.
      *
      * @param  App\Http\Requests\UpdateUserRequest  $request

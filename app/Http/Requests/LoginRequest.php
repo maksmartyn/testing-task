@@ -1,9 +1,22 @@
-<?php
+<?php 
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *  schema="LoginRequest",
+ *  @OA\Property(
+ *      property="email",
+ *      type="string"
+ *  ),
+ *  @OA\Property(
+ *      property="password",
+ *      type="string"
+ *  )
+ * )
+ */
 class LoginRequest extends FormRequest
 {
     /**

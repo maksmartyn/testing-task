@@ -1,9 +1,22 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *  schema="Department",
+ *  @OA\Property(
+ *      property="id",
+ *      type="integer"
+ *  ),
+ *  @OA\Property(
+ *      property="name",
+ *      type="string"
+ *  )
+ * )
+ */
 class Department extends Model
 {
     /**

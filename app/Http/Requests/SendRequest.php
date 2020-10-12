@@ -1,9 +1,18 @@
-<?php
+<?php 
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *  schema="SendRequest",
+ *  @OA\Property(
+ *      property="email",
+ *      type="string"
+ *  )
+ * )
+ */
 class SendRequest extends FormRequest
 {
     /**

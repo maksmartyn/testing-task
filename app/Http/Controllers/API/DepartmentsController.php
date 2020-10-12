@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -13,6 +13,37 @@ use Auth;
 class DepartmentsController extends BaseController
 {
     /**
+     *  @OA\Get(
+     *      path="/departments",
+     *      summary="Get list of departments",
+     *      tags={"Departments"},
+     *      security={
+     *          {"passport": {}},
+     *      },
+     *      @OA\Response(
+     *          response=200,
+     *          description="successful operation",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="id",
+     *                  type="integer"
+     *              ),
+     *              @OA\Property(
+     *                  property="name",
+     *                  type="string"
+     *              ),
+     *              @OA\Property(
+     *                  property="worker",
+     *                  ref="#/components/schemas/WorkPosition"
+     *              ),
+     *          ),
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="Unauthorized",
+     *      ),
+     *  )
+     * 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

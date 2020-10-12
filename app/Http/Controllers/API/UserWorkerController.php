@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers\API;
 
@@ -9,8 +9,83 @@ use App\Models\UserWorker;
 use App\Models\Worker;
 
 class UserWorkerController extends BaseController
-{
+{    
     /**
+     * @OA\Get(
+     *     path="/workers/{user}",
+     *     summary="Get worker info",
+     *     tags={"Workers"},
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Parameter(
+     *         name="user",
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="User id",
+     *         required=true
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="id",
+     *                 type="integer"
+     *             ),
+     *             @OA\Property(
+     *                 property="login",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="name",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="image",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="about",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="github",
+     *                 type="string"
+     *             ),
+     *             @OA\Property(
+     *                 property="worker",
+     *                 @OA\Property(
+     *                     property="department",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="position",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="adopted_at",
+     *                     type="string"
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Not found",
+     *     ),
+     * )
+     *
      * Display the specified resource.
      *
      * @param  int  $id
@@ -54,6 +129,130 @@ class UserWorkerController extends BaseController
 
 
     /**
+     * @OA\Get(
+     *     path="/workers",
+     *     summary="Get paginated workers list",
+     *     tags={"Workers"},
+     *     security={
+     *         {"passport": {}},
+     *     },
+     *     @OA\Parameter(
+     *         name="query",
+     *         in="path",
+     *         @OA\Schema(
+     *             type="string"
+     *         ),
+     *         description="Find by user name",
+     *         required=false
+     *     ),
+     *     @OA\Parameter(
+     *         name="department_id",
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Find by department id",
+     *         required=false
+     *     ),
+     *     @OA\Parameter(
+     *         name="position_id",
+     *         in="path",
+     *         @OA\Schema(
+     *             type="integer"
+     *         ),
+     *         description="Find by position id",
+     *         required=false
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="successful",
+     *         @OA\JsonContent(
+     *             @OA\Property(
+     *                  property="current_page",
+     *                  type="integer"
+     *              ),
+     *              @OA\Property(
+     *                  property="data",
+     *                  type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(
+     *                          property="login",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="name",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="email",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="image",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="about",
+     *                          type="string"
+     *                      ),
+     *                      @OA\Property(
+     *                          property="github",
+     *                          type="string"
+     *                      )
+     *                  )
+     *              ),
+     *              @OA\Property(
+     *                  property="first_page_url",
+     *                  type="string",
+     *              ),
+     *              @OA\Property(
+     *                  property="from",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
+     *                  property="last_page",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
+     *                  property="last_page_url",
+     *                  type="string",
+     *              ),
+     *              @OA\Property(
+     *                  property="next_page_url",
+     *                  type="string",
+     *              ),
+     *              @OA\Property(
+     *                  property="path",
+     *                  type="string",
+     *              ),
+     *              @OA\Property(
+     *                  property="per_page",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
+     *                  property="prev_page_url",
+     *                  type="string",
+     *              ),
+     *              @OA\Property(
+     *                  property="to",
+     *                  type="integer",
+     *              ),
+     *              @OA\Property(
+     *                  property="total",
+     *                  type="integer",
+     *              )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="401",
+     *         description="Unauthorized",
+     *     ),
+     *     @OA\Response(
+     *         response="404",
+     *         description="Not Found",
+     *     )
+     * )
+     *
      * Display a paginated listing of the resource.
      *
      * @param  \Illuminate\Http\Request  $request

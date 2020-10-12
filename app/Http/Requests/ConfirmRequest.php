@@ -1,9 +1,18 @@
-<?php
+<?php 
 
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @OA\Schema(
+ *  schema="ConfirmRequest",
+ *  @OA\Property(
+ *      property="token",
+ *      type="string"
+ *  )
+ * )
+ */
 class ConfirmRequest extends FormRequest
 {
     /**

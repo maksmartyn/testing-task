@@ -1,9 +1,22 @@
-<?php
+<?php 
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *  schema="UserWorker",
+ *  @OA\Property(
+ *      property="user",
+ *      ref="#/components/schemas/User"
+ *  ),
+ *  @OA\Property(
+ *      property="worker",
+ *      ref="#/components/schemas/Worker"
+ *  )
+ * )
+ */
 class UserWorker extends Model
 {
     /**
